@@ -62,6 +62,17 @@ const getAllPosts = async ({
     skip,
     take: limit,
     where,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          picture: true,
+          status: true,
+        },
+      },
+    },
     orderBy: {
       createdAt: sortBy,
     },
