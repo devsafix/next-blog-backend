@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PostService } from "./post.service";
+import { Prisma } from "@prisma/client";
 
 const createPost = async (req: Request, res: Response) => {
   try {
@@ -15,6 +16,10 @@ const getAllPosts = async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
     const search = (req.query.search as string) || "";
+
+    const sortQuery = (req.query.sortBy as string)?.toLowerCase();
+    const sortBy: Prisma.SortOrder = sortQuery === "desc" ? "desc" : "asc";
+
     const isFeatured = req.query.isFeatured
       ? req.query.isFeatured === "true"
       : undefined;
@@ -25,6 +30,7 @@ const getAllPosts = async (req: Request, res: Response) => {
       page,
       limit,
       search,
+      sortBy,
       isFeatured,
       tags,
     });
