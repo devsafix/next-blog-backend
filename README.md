@@ -1,4 +1,4 @@
-# Next Blog Starter
+# Building a Blog App to Practice Prisma ORM
 
 A simple **Blog Application** built with **TypeScript, Express.js, Prisma, PostgreSQL**.
 
