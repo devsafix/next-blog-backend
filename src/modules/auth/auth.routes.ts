@@ -4,5 +4,6 @@ import { AuthController } from "./auth.controller";
 const router = express.Router();
 
 router.post("/login", AuthController.loginWithEmailAndPassword);
+router.post("/google", AuthController.authWithGoogle);
 
 export const AuthRouter = router;
