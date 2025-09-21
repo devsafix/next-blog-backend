@@ -19,7 +19,7 @@ A simple **Blog Application** built with **TypeScript, Express.js, Prisma, Postg
 Clone the repository:
 
 ```bash
-git clone https://github.com/devsafix/next-blog-prisma-api
+git clone https://github.com/devsafix/next-blog-backend
 cd prisma-blog-app
 ```
 
