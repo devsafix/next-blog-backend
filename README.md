@@ -19,7 +19,7 @@ A simple **Blog Application** built with **TypeScript, Express.js, Prisma, Postg
 Clone the repository:
 
 ```bash
-git clone https://github.com/devsafix/prisma-blog-app
+git clone https://github.com/devsafix/next-blog-prisma-api
 cd prisma-blog-app
 ```
 
@@ -68,7 +68,7 @@ Prisma-Blog/
 │   ├── config/            # Environment & configuration files
 │   └── modules/           # Application modules (posts, users, etc.)
 │── package.json           # Project metadata & scripts
-│── pnpm-lock.yaml         # Lockfile (pnpm)
+│── package-lock.json         # Lockfile (npm)
 │── tsconfig.json          # TypeScript configuration
 │── README.md              # Documentation
 ```
@@ -79,13 +79,13 @@ Prisma-Blog/
 
 ```bash
 # Run in development mode
-pnpm dev
+npm dev
 
 # Build for production
-pnpm build
+npm build
 
 # Run production build
-pnpm start
+npm start
 ```
 
 ---
