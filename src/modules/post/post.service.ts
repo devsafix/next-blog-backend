@@ -22,14 +22,12 @@ const getAllPosts = async ({
   page = 1,
   limit = 10,
   search = "",
-  sortBy = "asc",
   isFeatured,
   tags,
 }: {
   page?: number;
   limit?: number;
   search?: string;
-  sortBy?: "asc" | "desc";
   isFeatured?: boolean;
   tags?: string[];
 }) => {
@@ -74,7 +72,7 @@ const getAllPosts = async ({
       },
     },
     orderBy: {
-      createdAt: sortBy,
+      createdAt: "desc",
     },
   });
 
