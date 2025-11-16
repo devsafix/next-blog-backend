@@ -13,15 +13,17 @@ model User {
   id         Int        @id @default(autoincrement())
   name       String
   email      String     @unique
-  password   String?
+  password   String
   role       Role       @default(USER)
-  phone      String
+  phone      String?
   picture    String?
   status     UserStatus @default(ACTIVE)
   isVerified Boolean    @default(false)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
-  posts      Post[]
+
+  posts   Post[]
+  reviews Review[]
 }
 
 model Post {
@@ -36,10 +38,25 @@ model Post {
   author     User     @relation(fields: [authorId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  reviews Review[]
 }
 
+model Review {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+// Only Admin and User
 enum Role {
-  SUPER_ADMIN
   ADMIN
   USER
 }
