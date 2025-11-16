@@ -1,5 +1,6 @@
 import compression from "compression";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import express from "express";
 import { UserRouter } from "./modules/user/user.routes";
 import { PostRouter } from "./modules/post/post.routes";
@@ -8,14 +9,18 @@ import { AuthRouter } from "./modules/auth/auth.routes";
 const app = express();
 
 // Middleware
+app.use(cookieParser());
 app.use(cors()); // Enables Cross-Origin Resource Sharing
 app.use(compression()); // Compresses response bodies for faster delivery
 app.use(express.json()); // Parse incoming JSON requests
 
+// CORS Configuration
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   })
 );
 
