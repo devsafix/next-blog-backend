@@ -43,9 +43,22 @@ const authWithGoogle = async (data: Prisma.UserCreateInput) => {
     },
   });
 
+  let resultUser;
   if (!user) {
-    return await prisma.user.create({ data });
-  } else return user;
+    resultUser = await prisma.user.create({ data });
+  } else {
+    resultUser = user;
+  }
+
+  const token = jwt.sign(
+    { id: resultUser.id, role: resultUser.role, email: resultUser.email },
+    process.env.JWT_SECRET as string,
+    { expiresIn: "30d" }
+  );
+
+  (resultUser as Partial<typeof resultUser>).password = undefined;
+
+  return { user: resultUser, token };
 };
 
 export const AuthService = {
