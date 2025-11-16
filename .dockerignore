@@ -1,0 +1,18 @@
+# Dependency folders
+node_modules
+
+# Build output
+dist
+
+# Environment variables (NEVER put .env in an image)
+.env*
+.env
+
+# Git and Docker
+.git
+.gitignore
+Dockerfile
+.dockerignore
+
+# Logs and debug
+npm-debug.log*

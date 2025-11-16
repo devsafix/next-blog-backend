@@ -24,12 +24,14 @@ const getAllPosts = async ({
   search = "",
   isFeatured,
   tags,
+  sortBy,
 }: {
   page?: number;
   limit?: number;
   search?: string;
   isFeatured?: boolean;
   tags?: string[];
+  sortBy?: Prisma.SortOrder;
 }) => {
   const skip = (page - 1) * limit;
   const normalizedSearch = search.trim();
@@ -72,7 +74,7 @@ const getAllPosts = async ({
       },
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: sortBy,
     },
   });
 
