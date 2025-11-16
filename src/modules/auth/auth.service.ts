@@ -1,5 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../config/db";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const loginWithEmailAndPassword = async ({
   email,
@@ -16,11 +18,22 @@ const loginWithEmailAndPassword = async ({
     throw new Error("User not found!");
   }
 
-  if (password === user.password) {
-    return user;
-  } else {
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatch) {
     throw new Error("Password is incorrect!");
   }
+
+  // Create JWT Token
+  const token = jwt.sign(
+    { id: user.id, role: user.role, email: user.email },
+    process.env.JWT_SECRET as string,
+    { expiresIn: "30d" }
+  );
+
+  (user as Partial<typeof user>).password = undefined;
+
+  return { user, token };
 };
 
 const authWithGoogle = async (data: Prisma.UserCreateInput) => {
